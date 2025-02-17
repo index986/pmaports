@@ -15,14 +15,12 @@ depends="
 	postmarketos-base
 	qbootctl
 	qbootctl-openrc
-	firmware-nothing-pong-adreno
+	firmware-nothing-pong-gpu
 	firmware-nothing-pong-adsp
 	firmware-nothing-pong-cdsp
-	firmware-nothing-pong-hexagonfs
 	firmware-nothing-pong-slpi
 	firmware-nothing-pong-ipa
 	firmware-nothing-pong-modem
-	firmware-nothing-pong-venus
 	linux-firmware-qcom 
 	linux-firmware-qca
 "

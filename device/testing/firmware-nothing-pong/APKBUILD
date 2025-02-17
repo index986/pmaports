@@ -1,0 +1,90 @@
+pkgname=firmware-nothing-pong
+pkgver=2
+pkgrel=0
+pkgdesc="Firmware for Nothing Phone 2"
+subpackages="
+	$pkgname-adsp
+	$pkgname-cdsp
+ 	$pkgname-gpu
+	$pkgname-initramfs
+	$pkgname-ipa
+	$pkgname-modem
+	$pkgname-slpi
+	"
+url="https://git.mainlining.org/index986/firmware-nothing-pong"
+arch="aarch64"
+license="proprietary"
+options="!check !strip !archcheck !tracedeps pmb:cross-native"
+_commit="c416c475796740cd861177c92b5f811f4d743cfe"
+source="
+	$pkgname-$_commit.tar.gz::$url/archive/$_commit.tar.gz
+	30-initramfs-firmware.files
+"
+builddir="$srcdir/$pkgname"
+
+package() {
+	# parent package is empty
+	mkdir -p "$pkgdir"
+}
+
+adsp() {
+	pkgdesc="Nothing Phone 2 adsp firmware"
+
+	install -Dm644 "$builddir"/adsp* -t \
+		"$subpkgdir/lib/firmware/qcom/sm8475/pong"
+}
+
+cdsp() {
+	pkgdesc="Nothing Phone 2 cdsp firmware"
+
+	install -Dm644 "$builddir"/cdsp* -t \
+		"$subpkgdir/lib/firmware/qcom/sm8475/pong"
+}
+
+gpu() {
+	pkgdesc="Nothing Phone 2 gpu firmware"
+
+	install -Dm644 "$builddir"/a730_sqe.fw -t \
+		"$subpkgdir/lib/firmware/qcom/"
+	install -Dm644 "$builddir"/gmu_gen7* -t \
+		"$subpkgdir/lib/firmware/qcom/"
+	install -Dm644 "$builddir"/a730_zap.mbn -t \
+		"$subpkgdir/lib/firmware/qcom/sm8475/nothing/pong/"
+}
+
+initramfs() {
+	pkgdesc="Nothing Phone 2 firmware to be included in the initramfs"
+
+	install -Dm644 "$srcdir/30-initramfs-firmware.files" -t \
+		"$subpkgdir"/usr/share/mkinitfs/files
+}
+
+ipa() {
+	pkgdesc="Nothing Phone 2 ipa firmware"
+
+	install -Dm644 "$builddir"/ipa_fws.* -t \
+		"$subpkgdir/lib/firmware/qcom/sm8475/pong"
+}
+
+modem() {
+	pkgdesc="Nothing Phone 2 modem firmware"
+
+	# cp because of the modem_pr directory
+	mkdir -p "$subpkgdir/lib/firmware/qcom/sm8475/pong"
+	cp -r "$builddir"/modem* \
+		"$subpkgdir/lib/firmware/qcom/sm8475/pong"
+	find "$subpkgdir/lib/firmware/qcom/sm8475/pong" \
+		-type f -exec chmod 0644 {} \;
+}
+
+slpi() {
+	pkgdesc="Nothing Phone 2 slpi firmware"
+
+	install -Dm644 "$builddir"/slpi* -t \
+		"$subpkgdir/lib/firmware/qcom/sm8475/pong"
+}
+
+sha512sums="
+0d063979cc314aad9953fd2e75f5e5e6b29ec5f0e0163fabe96bcb276c561108f70af4336d6aa0c1d950aa18d8ec5452c3eb4b92c67e4ca4fcca47bed28da26e  firmware-nothing-pong-c416c475796740cd861177c92b5f811f4d743cfe.tar.gz
+60c1d9f60ed66c55b64b035d2b8296c1d090048473d2f4a07136feca52d8b7ef829e02d7c37e58cb7196907c20160061def5fd2109de58b0d7981c9af345c5dc  30-initramfs-firmware.files
+"
