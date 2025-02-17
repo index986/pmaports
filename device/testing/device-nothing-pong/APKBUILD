@@ -1,7 +1,7 @@
 # Reference: <https://postmarketos.org/devicepkg>
 pkgname=device-nothing-pong
 pkgdesc="Nothing Phone 2"
-pkgver=0.1
+pkgver=1.0
 pkgrel=0
 url="https://postmarketos.org"
 license="MIT"
@@ -15,6 +15,16 @@ depends="
 	postmarketos-base
 	qbootctl
 	qbootctl-openrc
+	firmware-nothing-pong-adreno
+	firmware-nothing-pong-adsp
+	firmware-nothing-pong-cdsp
+	firmware-nothing-pong-hexagonfs
+	firmware-nothing-pong-slpi
+	firmware-nothing-pong-ipa
+	firmware-nothing-pong-modem
+	firmware-nothing-pong-venus
+	linux-firmware-qcom 
+	linux-firmware-qca
 "
 makedepends="devicepkg-dev"
 source="
@@ -29,6 +39,8 @@ build() {
 package() {
 	devicepkg_package $startdir $pkgname
 }
+
+
 
 sha512sums="
 b2031bc39360d3ca35f7801ad63b60acf9ec3ad2c64332dd270f48375fdde8bd7555bb4868c9d2fcafde8c3cde626c3dec4dd6b5bd5820a66773bb301cf48461  deviceinfo
