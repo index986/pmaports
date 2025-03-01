@@ -21,9 +21,6 @@ depends="
 	firmware-nothing-pong-slpi
 	firmware-nothing-pong-ipa
 	firmware-nothing-pong-modem
-	firmware-nothing-pong-venus
-	linux-firmware-qcom 
-	linux-firmware-qca
 "
 makedepends="devicepkg-dev"
 source="
